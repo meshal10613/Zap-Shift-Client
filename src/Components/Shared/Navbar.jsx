@@ -8,7 +8,7 @@ const Navbar = () => {
         <li><NavLink to="/sdfg">Coverage</NavLink></li>
         <li><NavLink to="/sdfg">About Us</NavLink></li>
         <li><NavLink to="/sdfg">Pricing</NavLink></li>
-        <li><NavLink to="/sdf">Be a Rider</NavLink></li>
+        <li><NavLink to="/be-a-rider">Be a Rider</NavLink></li>
     </>;
     return (
     <div className="navbar bg-white py-5 px-5 md:px-10 rounded-2xl my-5 md:my-10">

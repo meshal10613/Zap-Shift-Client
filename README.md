@@ -5,6 +5,11 @@ A curated collection of tools, guides, and assets for developing robust parcel m
 
 ---
 
+### 🚀 Live Demo
+👉 [Click here to visit the live app](https://assignment-11-inlingo.web.app/)
+
+---
+
 ## 📊 System Overview Table
 
 | Role               | Key Responsibilities                                                                      | Earnings/Benefits                              |
