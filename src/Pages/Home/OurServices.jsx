@@ -51,7 +51,7 @@ const OurServices = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {
                     services.map((service, index) => (
-                        <div key={index} className="card bg-base-200 shadow-md hover:shadow-lg duration-300 rounded-2xl transition-all hover:bg-[#CAEB66]">
+                        <div data-aos="fade-left" data-aos-duration="2000" key={index} className="card bg-white shadow-md hover:shadow-lg duration-300 rounded-2xl transition-all hover:bg-[#CAEB66]">
                             <div className="card-body items-center text-center">
                                 {service.icon}
                                 <h3 className="card-title mt-4">{service.title}</h3>

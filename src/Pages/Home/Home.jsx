@@ -4,6 +4,9 @@ import OurServices from './OurServices';
 import ClientLogos from './ClientLogos';
 import Cards from './Cards';
 import HowItWorks from './HowItWorks';
+import Marchent from './Marchent';
+import Faq from './Faq';
+import CustomerReviews from './CustomerReview';
 
 const Home = () => {
     return (
@@ -13,6 +16,9 @@ const Home = () => {
             <OurServices/>
             <ClientLogos/>
             <Cards/>
+            <Marchent/>
+            <CustomerReviews/>
+            <Faq/>
         </div>
     );
 };

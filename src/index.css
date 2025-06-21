@@ -1,5 +1,13 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui"{
+    themes: light --default, dark, garden;
+}
+@plugin "daisyui/theme" {
+    name: "garden";
+    default: true;
+    --color-primary: #CAEB66;
+    --color-secondary: #03373D;
+}
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 
 .font-urbanist{
@@ -8,7 +16,8 @@
 
 
 html{
-    background-color: #F0F3F6;
+    /* background-color: #F0F3F6; */
+    scroll-behavior: smooth;
 }
 
 footer a.active{

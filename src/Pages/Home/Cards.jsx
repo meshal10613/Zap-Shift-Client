@@ -29,7 +29,7 @@ const Cards = () => {
                 <div className="flex flex-col gap-6">
                 {
                     cards.map((card, index) => (
-                        <div data-aos="fade-left" data-aos-duration="2000" key={index} className="flex flex-col md:flex-row md:gap-5 xl:gap-10 bg-white p-5 md:p-10 rounded-2xl items-center">
+                        <div data-aos="fade-left" data-aos-duration="2000" key={index} className="flex flex-col md:flex-row md:gap-5 xl:gap-10 bg-white shadow-md p-5 md:p-10 rounded-2xl items-center">
                             <figure className='pb-5'>
                                 <img src={card.img} alt={card.title} className="w-fit" />
                             </figure>
