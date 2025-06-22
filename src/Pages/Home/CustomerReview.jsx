@@ -154,7 +154,7 @@ const TestimonialCard = ({ testimonial, position, isActive, onClick, showFullTex
     return (
         <div
         onClick={onClick}
-        className={`cursor-pointer card shadow-md p-6 rounded-2xl w-[20rem] h-80 transition-all duration-500 transform ${getTranslateY(
+        className={`cursor-pointer card shadow-md p-6 rounded-2xl w-[21rem] h-80 transition-all duration-500 transform ${getTranslateY(
             position
         )} ${isActive ? 'bg-white scale-100 opacity-100 z-10' : 'bg-base-200 scale-95 opacity-50 z-0'}`}
         >

@@ -81,8 +81,8 @@ const Faq = () => {
             <p className='text-gray-400 text-center'>We offer the lowest delivery charge with the highest value along with 100% safety of your product. Pathao courier delivers your parcels in every corner of Bangladesh right on time.</p>
             <div className='mt-5'>
                 {
-                    faq.map((f) => 
-                        <div key={f.id} className="collapse collapse-arrow bg-white border border-base-300 my-3">
+                    faq.map((f, index) => 
+                        <div data-aos={index % 2 === 0 ? "fade-right" : "fade-left"} data-aos-duration="3000" key={f.id} className="collapse collapse-arrow bg-white border border-base-300 my-3">
                             <input type="radio" name="my-accordion-2"/>
                             <div className="collapse-title font-semibold">{f.title}</div>
                             <div className="collapse-content text-sm  border-t-2 border-gray-400 pt-2">{f.description}</div>

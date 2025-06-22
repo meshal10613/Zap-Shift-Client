@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/assets/logo.png';
 
-const JapShiftLogo = () => {
+const ZapShiftLogo = () => {
     return (
         <div className='flex items-center justify-center gap-0 relative left-7 md:left-0 group hover:cursor-pointer'>
             <img src={logo} alt="" className='absolute right-18 -top-4 w-fit'/>
@@ -10,4 +10,4 @@ const JapShiftLogo = () => {
     );
 };
 
-export default JapShiftLogo;
+export default ZapShiftLogo;

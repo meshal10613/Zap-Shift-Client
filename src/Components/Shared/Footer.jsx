@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router';
-import JapShiftLogo from './JapShiftLogo';
+import ZapShiftLogo from './JapShiftLogo';
 import { FaFacebook, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
     return (
     <footer className="footer footer-horizontal footer-center bg-black text-neutral-content p-10 rounded-2xl my-5 md:my-10">
         <aside>
-            <JapShiftLogo/>
+            <ZapShiftLogo/>
             <p className='max-w-3xl mx-auto text-gray-400'>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>
         </aside>
         <div>
