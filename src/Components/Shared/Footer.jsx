@@ -13,7 +13,7 @@ const Footer = () => {
         <div>
             <ul className='flex gap-3'>
                 <li><NavLink to="/">Services</NavLink></li>
-                <li><NavLink to="/">Coverage</NavLink></li>
+                <li><NavLink to="/coverage">Coverage</NavLink></li>
                 <li><NavLink to="/">About Us</NavLink></li>
                 <li><NavLink to="/">Pricing</NavLink></li>
                 <li><NavLink to="/">Be a Rider</NavLink></li>

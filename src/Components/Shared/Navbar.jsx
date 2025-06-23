@@ -3,13 +3,17 @@ import { Link, NavLink } from 'react-router';
 import ZapShiftLogo from './JapShiftLogo';
 import { FaArrowRight } from 'react-icons/fa';
 import useAuthContext from '../../Hooks/useAuthContext';
+import profileImg from "../../assets/assets/no-img.png";
+import Loading from '../Loading';
 
 const Navbar = () => {
-    const {user} = useAuthContext();
-    console.log(user)
+    const {user, loading} = useAuthContext();
+    if(loading){
+        return <Loading/>
+    };
     const links = <>
         <li><NavLink to="/">Services</NavLink></li>
-        <li><NavLink to="/sdfg">Coverage</NavLink></li>
+        <li><NavLink to="/coverage">Coverage</NavLink></li>
         <li><NavLink to="/sdfg">About Us</NavLink></li>
         <li><NavLink to="/sdfg">Pricing</NavLink></li>
         <li><NavLink to="/be-a-rider">Be a Rider</NavLink></li>
@@ -35,8 +39,21 @@ const Navbar = () => {
             </ul>
         </div>
         <div className="navbar-end gap-3">
-            <Link to="/login" className='px-4 py-2 border border-gray-400 rounded-md font-semibold'>Sign In</Link>
-            <Link className='px-4 py-2 rounded-md bg-[#CAEB66] font-semibold hidden md:flex'>Be a Rider</Link>
+            {
+                user ?
+                <Link to="/my-profile" className="tooltip tooltip-bottom cursor-pointer tooltip-primary text-black">
+                    <div className="tooltip-content">
+                        <div className="text-black">{user?.displayName}</div>
+                    </div>
+                    <img src={profileImg} alt="" referrerPolicy='no-referrer' className='w-10 h-10 rounded-full border'/>
+                </Link>
+                :   
+                <div className='flex gap-3'>
+                    <Link to="/login" className='px-4 py-2 border border-gray-400 rounded-md font-semibold'>Sign In</Link>
+                    <Link to="/register" className='px-4 py-2 rounded-md bg-[#CAEB66] font-semibold hidden md:flex'>Register</Link>
+                </div>
+            }
+            
             <div className='border rounded-full p-1 cursor-pointer bg-black'>
                 <FaArrowRight size={25} className='-rotate-45 text-[#CAEB66] transition-all duration-1000 hover:rotate-315'/>
             </div>

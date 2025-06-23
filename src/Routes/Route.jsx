@@ -6,6 +6,9 @@ import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
 import Forgot from "../Pages/Authentication/Forgot";
+import Coverage from "../Pages/Coverage/Coverage";
+import Loading from "../Components/Loading";
+import MyProfile from "../Pages/Profile/MyProfile";
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +19,16 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home/>
+            },
+            {
+                path: "/coverage",
+                element: <Coverage/>,
+                loader: () => fetch("./data/warehouses.json"),
+                hydrateFallbackElement: <Loading/>
+            },
+            {
+                path: "/my-profile",
+                element: <MyProfile/>,
             },
         ]
     },
