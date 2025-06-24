@@ -10,9 +10,11 @@ import Coverage from "../Pages/Coverage/Coverage";
 import Loading from "../Components/Loading";
 import MyProfile from "../Pages/Profile/MyProfile";
 import VerifyCode from "../Pages/Authentication/VerifyCode";
-import SendPercel from "../Pages/SendPercel/SendPercel";
 import PrivetRoute from "./PrivetRoute";
 import DashBoardLayout from "../Layouts/DashBoardLayout";
+import MyParcels from "../Pages/Dashboard/MyParcels";
+import SendParcel from "../Pages/SendParcel/SendParcel";
+import DashboardError from "../Pages/Dashboard/DashboardError";
 
 export const router = createBrowserRouter([
     {
@@ -25,8 +27,8 @@ export const router = createBrowserRouter([
                 element: <Home/>
             },
             {
-                path: "/add-percel",
-                element: <PrivetRoute><SendPercel/></PrivetRoute>,
+                path: "/add-parcel",
+                element: <PrivetRoute><SendParcel/></PrivetRoute>,
                 loader: () => fetch("./data/warehouses.json"),
                 hydrateFallbackElement: <Loading/>
             },
@@ -68,10 +70,11 @@ export const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <PrivetRoute><DashBoardLayout/></PrivetRoute>,
-        errorElement: <ErrorPage/>,
+        errorElement: <DashboardError/>,
         children: [
             {
-                path: ""
+                path: "my-parcels",
+                element: <MyParcels/>
             }
         ]
     }

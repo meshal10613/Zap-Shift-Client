@@ -15,12 +15,12 @@ const Navbar = () => {
         <li><NavLink to="/">Services</NavLink></li>
         <li><NavLink to="/coverage">Coverage</NavLink></li>
         <li><NavLink to="/sdfg">About Us</NavLink></li>
-        <li><NavLink to="/add-percel">Pricing</NavLink></li>
+        <li><NavLink to="/add-parcel">Pricing</NavLink></li>
         <li><NavLink to="/be-a-rider">Be a Rider</NavLink></li>
         {
             user && 
             <>
-                <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                <li><NavLink to="/dashboard/my-parcels">Dashboard</NavLink></li>
             </>
         }
     </>;

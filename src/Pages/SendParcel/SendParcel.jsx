@@ -13,7 +13,7 @@ const generateTrackingID = () => {
     return `PCL-${datePart}-${rand}`;
 };
 
-const SendPercel = () => {
+const SendParcel = () => {
     const {
         register,
         handleSubmit,
@@ -260,4 +260,4 @@ const onSubmit = (data) => {
     );
 };
 
-export default SendPercel;
+export default SendParcel;
