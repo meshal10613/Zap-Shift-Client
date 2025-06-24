@@ -15,8 +15,8 @@ const Footer = () => {
                 <li><NavLink to="/">Services</NavLink></li>
                 <li><NavLink to="/coverage">Coverage</NavLink></li>
                 <li><NavLink to="/">About Us</NavLink></li>
-                <li><NavLink to="/">Pricing</NavLink></li>
-                <li><NavLink to="/">Be a Rider</NavLink></li>
+                <li><NavLink to="/add-percel">Pricing</NavLink></li>
+                <li><NavLink to="/be-a-rider">Be a Rider</NavLink></li>
             </ul>
         </div>
         <nav>

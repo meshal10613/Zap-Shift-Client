@@ -1,14 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import logo from '../../assets/assets/logo.png';
 import image from '../../assets/assets/authImage.png'
 
 const Forgot = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
+    const navigate = useNavigate();
     const onSubmit = (data) => {
         console.log(data)
-    }
+        navigate("/verify-code")
+    };
     return (
         <div>
             <div className='flex items-center justify-around min-h-screen'>

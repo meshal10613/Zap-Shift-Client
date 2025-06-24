@@ -4,19 +4,25 @@ import ZapShiftLogo from './JapShiftLogo';
 import { FaArrowRight } from 'react-icons/fa';
 import useAuthContext from '../../Hooks/useAuthContext';
 import profileImg from "../../assets/assets/no-img.png";
-import Loading from '../Loading';
+import LoadingBlank from '../LoadingBlank';
 
 const Navbar = () => {
     const {user, loading} = useAuthContext();
     if(loading){
-        return <Loading/>
+        return <LoadingBlank/>
     };
     const links = <>
         <li><NavLink to="/">Services</NavLink></li>
         <li><NavLink to="/coverage">Coverage</NavLink></li>
         <li><NavLink to="/sdfg">About Us</NavLink></li>
-        <li><NavLink to="/sdfg">Pricing</NavLink></li>
+        <li><NavLink to="/add-percel">Pricing</NavLink></li>
         <li><NavLink to="/be-a-rider">Be a Rider</NavLink></li>
+        {
+            user && 
+            <>
+                <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+            </>
+        }
     </>;
     return (
     <div className="navbar bg-white py-5 px-5 md:px-10 rounded-2xl my-5 md:my-10">
