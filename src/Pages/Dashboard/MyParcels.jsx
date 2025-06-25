@@ -4,10 +4,12 @@ import useAuthContext from '../../Hooks/useAuthContext';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { FaEye, FaMoneyBillWave, FaTrash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Link, useNavigate } from 'react-router';
 
 const MyParcels = () => {
     const {user} = useAuthContext();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
     const {data: parcels=[], refetch} = useQuery({
         queryKey: ["my-parcels", user?.email],
         queryFn: async() => {
@@ -52,6 +54,10 @@ const MyParcels = () => {
         }
     };
 
+    const handlePay = (id) => {
+        navigate(`/dashboard/payment/${id}`)
+    };
+
     return (
         <div className="overflow-x-auto p-4 bg-white my-10 mx-10 rounded-2xl">
             <table className="table table-zebra w-full">
@@ -90,9 +96,9 @@ const MyParcels = () => {
                                 <FaEye className="text-blue-500" size={20}/>
                             </button>
                             {parcel.payment_status === 'unpaid' && (
-                            <button className="btn btn-ghost btn-xs tooltip" data-tip="Pay">
+                            <Link onClick={() => handlePay(parcel._id)} className="btn btn-ghost btn-xs tooltip" data-tip="Pay">
                                 <FaMoneyBillWave className="text-green-500" size={20}/>
-                            </button>
+                            </Link>
                             )}
                             <button onClick={() => handleDelete(parcel._id)} className="btn btn-ghost btn-xs tooltip" data-tip="Delete">
                                 <FaTrash className="text-red-500" size={20} />

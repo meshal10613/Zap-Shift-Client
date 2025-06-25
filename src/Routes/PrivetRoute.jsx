@@ -13,7 +13,7 @@ const PrivetRoute = ({children}) => {
     };
 
     if(!user){
-        <Navigate to="/login" state={location?.state}/>
+        return <Navigate to="/login" state={location?.pathname}/>
     }else{
         return children;
     }

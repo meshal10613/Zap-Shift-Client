@@ -36,7 +36,7 @@ const DashBoardLayout = () => {
                     {/* Sidebar content here */}
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/dashboard/my-parcels">My Parcels</NavLink></li>
-                    <li><NavLink to="/dashboard/asd">1</NavLink></li>
+                    <li><NavLink to="/dashboard/cghj"></NavLink></li>
                     <li><NavLink to="/dashboard/asdf">1</NavLink></li>
                     <li><NavLink to="/dashboard/asdf">1</NavLink></li>
                 </ul>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import logo from '../../assets/assets/logo.png';
 import image from '../../assets/assets/authImage.png'
 import useAuthContext from '../../Hooks/useAuthContext';
@@ -9,6 +9,8 @@ import { Bounce, toast } from 'react-toastify';
 const Login = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const {loginUser, withGoogle} = useAuthContext();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
         const email = data.email;
@@ -24,6 +26,7 @@ const Login = () => {
             };
             console.log(serverData)
             console.log(user);
+            navigate(location?.state ? location?.state : "/");
         })
         .catch((error) => {
             toast.error(`${error?.message}`, {
@@ -50,6 +53,7 @@ const Login = () => {
             };
             console.log(user)
             console.log(serverData)
+            navigate(location?.state ? location?.state : "/");
         })
         .catch((error) => {
             toast.error(`${error?.message}`, {
