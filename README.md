@@ -1,12 +1,11 @@
-# Zap Shift
+# Project Name: ZapShift
 
-Welcome to **Zap Shift**!  
-A curated collection of tools, guides, and assets for developing robust parcel management systems.
+- [Client Live URL](http://localhost:5173/)
+- [Server Live URL](http://localhost:3000/)
 
----
+## Project Purpose: ZapShift
 
-### 🚀 Live Demo
-👉 [Click here to visit the live app](http://localhost:5173/)
+ZapShift is a parcel delivery management platform designed to streamline the logistics process for both businesses and individuals. It connects users, riders (delivery personnel), and admins through a centralized system, allowing for efficient, transparent, and trackable parcel delivery services. The platform eliminates manual processes, improves real-time coordination, and enhances the customer experience with faster and more reliable deliveries.
 
 ---
 
