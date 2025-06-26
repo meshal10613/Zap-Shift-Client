@@ -1,13 +1,51 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import ZapShiftLogo from './JapShiftLogo';
 import { FaArrowRight } from 'react-icons/fa';
 import useAuthContext from '../../Hooks/useAuthContext';
 import profileImg from "../../assets/assets/no-img.png";
 import LoadingBlank from '../LoadingBlank';
+import { MdLogout } from 'react-icons/md';
+import { CgProfile } from "react-icons/cg";
+import { RxDashboard } from "react-icons/rx";
+import Swal from 'sweetalert2';
+
+
 
 const Navbar = () => {
-    const {user, loading} = useAuthContext();
+    const {user, loading, logOut} = useAuthContext();
+    const navigate = useNavigate();
+    const handleSignOut = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You're logging out from this site",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#03373D",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Logout"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    logOut()
+                    .then(() => {
+                        navigate("/");
+                        Swal.fire({
+                            title: "Logout",
+                            text: "Your have logout successfully",
+                            icon: "success",
+                            confirmButtonColor: "#03373D",
+                        });
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: `${error.message}`,
+                        });
+                    });
+                }
+            });
+    };
     if(loading){
         return <LoadingBlank/>
     };
@@ -17,12 +55,6 @@ const Navbar = () => {
         <li><NavLink to="/sdfg">About Us</NavLink></li>
         <li><NavLink to="/add-parcel">Pricing</NavLink></li>
         <li><NavLink to="/be-a-rider">Be a Rider</NavLink></li>
-        {
-            user && 
-            <>
-                <li><NavLink to="/dashboard/my-parcels">Dashboard</NavLink></li>
-            </>
-        }
     </>;
     return (
     <div className="navbar bg-white py-5 px-5 md:px-10 rounded-2xl my-5 md:my-10">
@@ -47,12 +79,22 @@ const Navbar = () => {
         <div className="navbar-end gap-3">
             {
                 user ?
-                <Link to="/my-profile" className="tooltip tooltip-bottom cursor-pointer tooltip-primary text-black">
-                    <div className="tooltip-content">
-                        <div className="text-black">{user?.displayName}</div>
-                    </div>
-                    <img src={profileImg} alt="" referrerPolicy='no-referrer' className='w-10 h-10 rounded-full border'/>
-                </Link>
+                <div className="dropdown dropdown-center">
+                    <img src={profileImg} alt="" referrerPolicy='no-referrer' className='w-10 h-10 rounded-full border cursor-pointer' tabIndex={0} role="button" />
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                        <li>
+                            <Link to="/dashboard/my-parcels" className='hover:text-white hover:bg-secondary'>
+                            <RxDashboard />Dashboard
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/my-profile" className='hover:text-white hover:bg-secondary'>
+                                <CgProfile/>My Profile
+                            </Link>
+                        </li>
+                        <li><Link onClick={handleSignOut} className='text-secondary hover:text-white hover:bg-secondary'><MdLogout />Logout</Link></li>
+                    </ul>
+                </div>
                 :   
                 <div className='flex gap-3'>
                     <Link to="/login" className='px-4 py-2 border border-gray-400 rounded-md font-semibold'>Sign In</Link>

@@ -17,6 +17,11 @@ const MyParcels = () => {
             return res.data;
         }
     });
+
+    const handleDetails = (parcel) => {
+        console.log(parcel)
+        document.getElementById("my_modal_3").showModal()
+    }
     
     const handleDelete = async(id) => {
         const confirm = await Swal.fire({
@@ -59,8 +64,8 @@ const MyParcels = () => {
     };
 
     return (
-        <div className="overflow-x-auto p-4 bg-white my-10 mx-10 rounded-2xl">
-            <table className="table table-zebra w-full">
+        <div className="overflow-x-auto p-4 bg-white my-5 md:my-10 mx-3 md:mx-10 rounded-2xl">
+            <table className="table w-full">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -92,7 +97,7 @@ const MyParcels = () => {
                             </span>
                         </td>
                         <td className="flex flex-wrap gap-2">
-                            <button className="btn btn-ghost btn-xs tooltip" data-tip="View">
+                            <button onClick={() => handleDetails(parcel)} className="btn btn-ghost btn-xs tooltip" data-tip="View">
                                 <FaEye className="text-blue-500" size={20}/>
                             </button>
                             {parcel.payment_status === 'unpaid' && (
@@ -116,6 +121,18 @@ const MyParcels = () => {
                 }
                 </tbody>
             </table>
+
+            {/*  */}
+            <dialog id="my_modal_3" className="modal">
+                <div className="modal-box">
+                    <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 className="font-bold text-lg">Hello!</h3>
+                    <p className="py-4">Press ESC key or click on ✕ button to close</p>
+                </div>
+            </dialog>
         </div>
     );
 };

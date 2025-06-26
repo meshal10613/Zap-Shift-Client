@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBoxOpen, FaHome, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserEdit } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router';
 
 const DashBoardLayout = () => {
@@ -34,11 +35,50 @@ const DashBoardLayout = () => {
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 main-link">
                     {/* Sidebar content here */}
-                    <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/dashboard/my-parcels">My Parcels</NavLink></li>
-                    <li><NavLink to="/dashboard/cghj"></NavLink></li>
-                    <li><NavLink to="/dashboard/asdf">1</NavLink></li>
-                    <li><NavLink to="/dashboard/asdf">1</NavLink></li>
+                    <li>
+                        <NavLink to="/">
+                            <FaHome className="inline-block mr-2" />
+                            Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/my-parcels">
+                            <FaBoxOpen className="inline-block mr-2" />
+                            My Parcels
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/payment-history">
+                            <FaMoneyCheckAlt className="inline-block mr-2" />
+                            Payment History
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/track-parcel">
+                            <FaSearchLocation className="inline-block mr-2" />
+                            Track a Package
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/profile">
+                            <FaUserEdit className="inline-block mr-2" />
+                            Update Profile
+                        </NavLink>
+                    </li>
+
+                    {/* riders link */}
+                    <li>
+                        <NavLink to="/dashboard/active-riders">
+                            <FaUserCheck className="inline-block mr-2" />
+                            Active Riders
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/pending-riders">
+                            <FaUserClock className="inline-block mr-2" />
+                            Pending Riders
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </div>
