@@ -1,51 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import logo from '../../assets/assets/logo.png';
 import image from '../../assets/assets/authImage.png'
 import image2 from '../../assets/assets/image-upload-icon.png'
 import useAuthContext from '../../Hooks/useAuthContext';
 import { Bounce, toast } from 'react-toastify';
+import axios from 'axios';
+import useAxios from '../../Hooks/useAxios';
 
 const Register = () => {
+    const axiosInstance = useAxios();
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const { registerUser, updateUserProfile, setUser, withGoogle } = useAuthContext();
-
+    const [profilePic, setProfilePic] = useState("");
+    const navigate = useNavigate();
+    
     const onSubmit = (data) => {
         const name = data.name;
         const email = data.email;
         const password = data.password;
-        console.log(name, email, password)
 
         registerUser(email, password)
-        .then((result) => {
+        .then(async(result) => {
             const user = result.user;
-            const updateData = { displayName: name };
+            const updateData = { displayName: name, photoURL: profilePic, };
             const serverData = {
                 displayName: name,
                 email: email,
+                role: "user", //default
                 creationTime: user?.metadata?.creationTime,
                 lastSignInTime: user?.metadata?.lastSignInTime,
             };
-            updateUserProfile(updateData)
-            .then(() => {
-                setUser({...user, ...updateData})
-                console.log(user)
-                console.log(serverData)
-            })
-            .catch((error) => {
-                toast.error(`${error?.message}`, {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                });
-            })
+            const userRes = await axiosInstance.post("/users", serverData)
+            if(userRes.data.insertedId){
+                updateUserProfile(updateData)
+                .then(() => {
+                    setUser({...user, ...updateData});
+                    navigate("/");
+                    toast.success(`Sign up successfully`, {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                })
+                .catch((error) => {
+                    toast.error(`${error?.message}`, {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
+                })
+            }
         })
         .catch((error) => {
             toast.error(`${error?.message}`, {
@@ -62,18 +80,47 @@ const Register = () => {
         })
     };
 
+    const handleImageUpload = async(e) => {
+        const photoURL = e.target.files[0];
+
+        const formData = new FormData();
+        formData.append("image", photoURL);
+
+        const uploadKey = import.meta.env.VITE_image_upload_key;
+        const res = await axios.post(`https://api.imgbb.com/1/upload?key=${uploadKey}`, formData, {
+            headers: {
+                "content-type": "multipart/form-data",
+            },
+        });
+        setProfilePic(res.data.data.url);
+    };
+
     const handleGoogleRegister = () => {
         withGoogle()
-        .then((res) => {
+        .then(async(res) => {
             const user = res.user;
             const serverData = {
                 displayName: user?.displayName,
                 email: user?.email,
+                role: "user", //default
                 creationTime: user?.metadata?.creationTime,
                 lastSignInTime: user?.metadata?.lastSignInTime,
             };
-            console.log(user)
-            console.log(serverData)
+            const userRes = await axiosInstance.post("/users", serverData)
+            if(userRes.data.insertedId || userRes.data.modifiedCount){
+                navigate("/");
+                toast.success(`Sign ${userRes.data.insertedId ? "up" : "in"} successfully`, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
         })
         .catch((error) => {
             toast.error(`${error?.message}`, {
@@ -95,7 +142,7 @@ const Register = () => {
             <div className='flex items-center justify-around min-h-screen'>
                 <div className='flex-1 md:pl-20 flex flex-col justify-center'>
                     <Link to="/" className='flex items-center justify-baseline gap-0 group hover:cursor-pointer mb-5 mx-auto'>
-                        <img src={logo} alt="" className='w-fit'/>
+                        <img src={logo} referrerPolicy='no-referrer' alt="" className='w-fit'/>
                         <h1 className='text-2xl font-bold relative right-4 top-2'>zapshift</h1>
                     </Link>
                     <div className='flex-1'>
@@ -103,8 +150,9 @@ const Register = () => {
                         <div className='md:max-w-md mx-5 md:mx-auto space-y-3'>
                             <h2 className='text-5xl font-bold'>Create an Account</h2>
                             <p>Register with Zapshift</p>
-                            <img src={image2} alt="" className='w-fit'/>
+                            <img src={ profilePic ? profilePic : image2} alt="" className='w-12 h-12 rounded-full'/>
                             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-3'>
+                                {/* Name */}
                                 <div className='flex flex-col'>
                                     <label className="label">Name</label>
                                     <input type="name" 
@@ -140,6 +188,14 @@ const Register = () => {
                                             )
                                         }
                                 </div>
+                                {/* File */}
+                                {
+                                    profilePic ? <></> :
+                                    <div className='flex flex-col'>
+                                        <input type="file" 
+                                        placeholder="Up" onChange={handleImageUpload} className='input w-fit border-2 border-gray-300 cursor-pointer'/>
+                                    </div>
+                                }
                                 <button className='px-4 py-2 rounded-md bg-[#CAEB66] font-semibold cursor-pointer'>Register</button>
                             </form>
                             <p className='text-gray-400'>Don't have an account? <Link to="/login" className='link link-hover text-[#8FA748]'>Login</Link></p>

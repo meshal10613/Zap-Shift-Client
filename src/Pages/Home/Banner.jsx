@@ -12,15 +12,12 @@ const Banner = () => {
             <Carousel autoPlay={true} interval={2000} infiniteLoop={true} showIndicators={true} showThumbs={false}>
                 <div>
                     <img src={Banner1} />
-                    {/* <p className="legend">Legend 1</p> */}
                 </div>
                 <div>
                     <img src={Banner3} />
-                    {/* <p className="legend">Legend 2</p> */}
                 </div>
                 <div>
                     <img src={Banner2} />
-                    {/* <p className="legend">Legend 3</p> */}
                 </div>
             </Carousel>
         </div>

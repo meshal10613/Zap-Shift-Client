@@ -80,7 +80,7 @@ const Navbar = () => {
             {
                 user ?
                 <div className="dropdown dropdown-center">
-                    <img src={profileImg} alt="" referrerPolicy='no-referrer' className='w-10 h-10 rounded-full border cursor-pointer' tabIndex={0} role="button" />
+                    <img src={user?.photoURL ? user?.photoURL : profileImg} alt="" referrerPolicy='no-referrer' className='w-10 h-10 rounded-full border cursor-pointer' tabIndex={0} role="button" />
                     <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                         <li>
                             <Link to="/dashboard/my-parcels" className='hover:text-white hover:bg-secondary'>

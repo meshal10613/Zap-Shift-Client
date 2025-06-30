@@ -18,6 +18,10 @@ import DashboardError from "../Pages/Dashboard/DashboardError";
 import Payment from "../Pages/Dashboard/Payment";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
 import TrackParcel from "../Pages/Dashboard/TrackParcel";
+import BeARider from "../Pages/BeARider";
+import PendingRiders from "../Pages/Dashboard/PendingRiders";
+import ActiveRiders from "../Pages/Dashboard/ActiveRiders";
+import DeactivatedRiders from "../Pages/Dashboard/DeactivatedRiders";
 
 export const router = createBrowserRouter([
     {
@@ -45,6 +49,12 @@ export const router = createBrowserRouter([
                 path: "/my-profile",
                 element: <MyProfile/>,
             },
+            {
+                path: "/be-a-rider",
+                element: <PrivetRoute><BeARider/></PrivetRoute>,
+                loader: () => fetch("./data/warehouses.json"),
+                hydrateFallbackElement: <Loading/>
+            }
         ]
     },
     {
@@ -90,6 +100,18 @@ export const router = createBrowserRouter([
             {
                 path: "track-parcel",
                 element: <TrackParcel/>
+            },
+            {
+                path: "active-riders",
+                element: <ActiveRiders/>
+            },
+            {
+                path: "deactivate-riders",
+                element: <DeactivatedRiders/>
+            },
+            {
+                path: "pending-riders",
+                element: <PendingRiders/>
             }
         ]
     }

@@ -5,28 +5,41 @@ import logo from '../../assets/assets/logo.png';
 import image from '../../assets/assets/authImage.png'
 import useAuthContext from '../../Hooks/useAuthContext';
 import { Bounce, toast } from 'react-toastify';
+import useAxios from '../../Hooks/useAxios';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const {loginUser, withGoogle} = useAuthContext();
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosInstance = useAxios();
 
     const onSubmit = (data) => {
         const email = data.email;
         const password = data.password;
-        console.log(email, password)
 
         loginUser(email, password)
-        .then((res) => {
+        .then(async(res) => {
             const user = res.user;
             const serverData = {
                 email: email,
                 lastSignInTime: user?.metadata?.lastSignInTime,
             };
-            console.log(serverData)
-            console.log(user);
-            navigate(location?.state ? location?.state : "/");
+            const userRes = await axiosInstance.post("/users", serverData);
+            if(userRes.data.modifiedCount){
+                navigate(location?.state ? location?.state : "/");
+                toast.success(`Sign in successfully`, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
         })
         .catch((error) => {
             toast.error(`${error?.message}`, {
@@ -45,15 +58,27 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         withGoogle()
-        .then((res) => {
+        .then(async(res) => {
             const user = res.user;
             const serverData = {
                 email: user?.email,
                 lastSignInTime: user?.metadata?.lastSignInTime,
             };
-            console.log(user)
-            console.log(serverData)
-            navigate(location?.state ? location?.state : "/");
+            const userRes = await axiosInstance.post("/users", serverData);
+            if(userRes.data.insertedId || userRes.data.modifiedCount){
+                navigate(location?.state ? location?.state : "/");
+                toast.success(`Sign ${userRes.data.insertedId ? "up" : "in"} successfully`, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+            }
         })
         .catch((error) => {
             toast.error(`${error?.message}`, {

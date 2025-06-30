@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBoxOpen, FaHome, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserEdit } from 'react-icons/fa';
+import { FaBoxOpen, FaHome, FaMoneyCheckAlt, FaSearchLocation, FaUserCheck, FaUserClock, FaUserEdit, FaUserShield } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router';
 
 const DashBoardLayout = () => {
@@ -71,6 +71,12 @@ const DashBoardLayout = () => {
                         <NavLink to="/dashboard/active-riders">
                             <FaUserCheck className="inline-block mr-2" />
                             Active Riders
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/deactivate-riders">
+                            <FaUserShield className="inline-block mr-2" />
+                            Deactivate Riders
                         </NavLink>
                     </li>
                     <li>
