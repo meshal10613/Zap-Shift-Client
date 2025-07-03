@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBoxOpen, FaCheckCircle, FaHome, FaMoneyCheckAlt, FaMotorcycle, FaSearchLocation, FaTasks, FaUserCheck, FaUserClock, FaUserEdit, FaUserShield } from 'react-icons/fa';
+import { FaBoxOpen, FaCheckCircle, FaHome, FaMoneyCheckAlt, FaMotorcycle, FaSearchLocation, FaTasks, FaUserCheck, FaUserClock, FaUserEdit, FaUserShield, FaWallet } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router';
 import useUserRole from '../Hooks/useUserRole';
 
@@ -71,6 +71,12 @@ const DashBoardLayout = () => {
                     {
                         !roleLoading && role === 'rider' && 
                         <>
+                            <li>
+                                <NavLink to="/dashboard/my-earnings">
+                                    <FaWallet className="inline-block mr-2" />
+                                    My Earnings
+                                </NavLink>
+                            </li>
                             <li>
                                 <NavLink to="/dashboard/pending-deliveries">
                                     <FaTasks className="inline-block mr-2" />

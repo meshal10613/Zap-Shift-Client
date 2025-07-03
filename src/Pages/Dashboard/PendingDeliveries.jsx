@@ -54,11 +54,11 @@ const PendingDeliveries = () => {
                             trackDetails = `Delivered by ${user.displayName}`
                         }
                         await logTracking({
-                                tracking_id: parcel.tracking_id,
-                                status: newStatus,
-                                details: trackDetails,
-                                updated_by: user.email,
-                            });
+                            tracking_id: parcel.tracking_id,
+                            status: newStatus,
+                            details: trackDetails,
+                            updated_by: user.email,
+                        });
 
                     })
                     .catch(() => {

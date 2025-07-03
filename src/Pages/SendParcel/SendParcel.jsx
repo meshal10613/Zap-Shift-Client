@@ -5,6 +5,7 @@ import useAuthContext from "../../Hooks/useAuthContext";
 import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useTrackingLogger from "../../Hooks/useTrackingLogger";
 
 const generateTrackingID = () => {
     const date = new Date();
@@ -24,10 +25,11 @@ const SendParcel = () => {
     const warehouses = useLoaderData();
     const AxiosSecure = useAxiosSecure();
     const navigate = useNavigate();
+    const {logTracking} = useTrackingLogger();
 
     const parcelType = watch("type");
 
-const onSubmit = (data) => {
+const onSubmit = async(data) => {
         let weight = parseFloat(data.weight) || 0;
         const isSameDistrict = data.senderRegion === data.receiverRegion;
 
@@ -86,6 +88,7 @@ const onSubmit = (data) => {
             },
         }).then((result) => {
             if (result.isConfirmed) {
+                const tracking_id = generateTrackingID()
                 const parcelData = {
                     ...data,
                     cost: totalCost,
@@ -93,13 +96,13 @@ const onSubmit = (data) => {
                     payment_status: 'unpaid',
                     delivery_status: 'not_collected',
                     creation_date: new Date().toISOString(),
-                    tracking_id: generateTrackingID(),
+                    tracking_id: tracking_id,
                 };
 
                 console.log("Ready for payment:", parcelData);
                 
                 AxiosSecure.post('/parcels', parcelData)
-                    .then(res => {
+                    .then(async(res) => {
                         console.log(res.data);
                         if (res.data.insertedId) {
                             // TODO: redirect to a payment page 
@@ -110,6 +113,14 @@ const onSubmit = (data) => {
                                 timer: 1500,
                                 showConfirmButton: false,
                             });
+
+                            await logTracking({
+                                tracking_id: parcelData.tracking_id,
+                                status: "parcel_created",
+                                details: `Created by ${user.displayName}`,
+                                updated_by: user.email,
+                            })
+
                             navigate("/dashboard/my-parcels")
                         }
                     })
