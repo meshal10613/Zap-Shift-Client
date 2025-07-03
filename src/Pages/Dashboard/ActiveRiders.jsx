@@ -91,10 +91,10 @@ const ActiveRiders = () => {
                             <tr key={rider._id}>
                             <td>{rider.name}</td>
                             <td>{rider.email}</td>
-                            <td>{rider.phone}</td>
+                            <td>{rider.contact}</td>
                             <td>{rider.region}</td>
-                            <td>{rider.district}</td>
-                            <td>{rider.bike_brand} - {rider.bike_registration}</td>
+                            <td>{rider.warehouse}</td>
+                            <td>{rider.bikeBrand} - {rider.bikeRegNo}</td>
                             <td><span className="badge badge-success text-white">Active</span></td>
                             <td>
                                 <button

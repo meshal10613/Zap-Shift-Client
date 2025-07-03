@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import logo from '../../assets/assets/logo.png';
 import image from '../../assets/assets/authImage.png'
 import image2 from '../../assets/assets/image-upload-icon.png'
@@ -15,6 +15,8 @@ const Register = () => {
     const { registerUser, updateUserProfile, setUser, withGoogle } = useAuthContext();
     const [profilePic, setProfilePic] = useState("");
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from || "/";
     
     const onSubmit = (data) => {
         const name = data.name;
@@ -37,7 +39,7 @@ const Register = () => {
                 updateUserProfile(updateData)
                 .then(() => {
                     setUser({...user, ...updateData});
-                    navigate("/");
+                    navigate(from);
                     toast.success(`Sign up successfully`, {
                         position: "bottom-right",
                         autoClose: 5000,
@@ -108,7 +110,7 @@ const Register = () => {
             };
             const userRes = await axiosInstance.post("/users", serverData)
             if(userRes.data.insertedId || userRes.data.modifiedCount){
-                navigate("/");
+                navigate(from);
                 toast.success(`Sign ${userRes.data.insertedId ? "up" : "in"} successfully`, {
                     position: "bottom-right",
                     autoClose: 5000,

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Bounce, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import useAuthContext from "../../Hooks/useAuthContext";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
@@ -23,6 +23,7 @@ const SendParcel = () => {
     const {user} = useAuthContext();
     const warehouses = useLoaderData();
     const AxiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const parcelType = watch("type");
 
@@ -109,6 +110,7 @@ const onSubmit = (data) => {
                                 timer: 1500,
                                 showConfirmButton: false,
                             });
+                            navigate("/dashboard/my-parcels")
                         }
                     })
                     .catch((error) => {

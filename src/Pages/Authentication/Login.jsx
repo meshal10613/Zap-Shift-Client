@@ -13,6 +13,7 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const axiosInstance = useAxios();
+    const from = location?.state || "/";
 
     const onSubmit = (data) => {
         const email = data.email;
@@ -27,7 +28,7 @@ const Login = () => {
             };
             const userRes = await axiosInstance.post("/users", serverData);
             if(userRes.data.modifiedCount){
-                navigate(location?.state ? location?.state : "/");
+                navigate(from);
                 toast.success(`Sign in successfully`, {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -66,7 +67,7 @@ const Login = () => {
             };
             const userRes = await axiosInstance.post("/users", serverData);
             if(userRes.data.insertedId || userRes.data.modifiedCount){
-                navigate(location?.state ? location?.state : "/");
+                navigate(from);
                 toast.success(`Sign ${userRes.data.insertedId ? "up" : "in"} successfully`, {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -136,7 +137,7 @@ const Login = () => {
                                 <div><Link to="/forgot-password" className="link text-gray-400">Forgot password?</Link></div>
                                 <button className='px-4 py-2 rounded-md bg-[#CAEB66] font-semibold cursor-pointer'>Login</button>
                             </form>
-                            <p className='text-gray-400'>Don't have an account? <Link to="/register" className='link link-hover text-[#8FA748]'>Register</Link></p>
+                            <p className='text-gray-400'>Don't have an account? <Link state={{from}} to="/register" className='link link-hover text-[#8FA748]'>Register</Link></p>
                             <div className="divider">Or</div>
                             {/* Google */}
                             <button onClick={handleGoogleLogin} className="btn bg-white text-black border-[#e5e5e5] w-full h-10">

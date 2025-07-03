@@ -22,6 +22,13 @@ import BeARider from "../Pages/BeARider";
 import PendingRiders from "../Pages/Dashboard/PendingRiders";
 import ActiveRiders from "../Pages/Dashboard/ActiveRiders";
 import DeactivatedRiders from "../Pages/Dashboard/DeactivatedRiders";
+import MakeAdmin from "../Pages/Dashboard/MakeAdmin";
+import Forbidden from "../Pages/Forbidden";
+import AdminRoutes from "./AdminRoutes";
+import AssignRider from "../Pages/Dashboard/AssignRider";
+import PendingDeliveries from "../Pages/Dashboard/PendingDeliveries";
+import RiderRoute from "./RiderRoute";
+import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries";
 
 export const router = createBrowserRouter([
     {
@@ -54,6 +61,10 @@ export const router = createBrowserRouter([
                 element: <PrivetRoute><BeARider/></PrivetRoute>,
                 loader: () => fetch("./data/warehouses.json"),
                 hydrateFallbackElement: <Loading/>
+            },
+            {
+                path: "/forbidden",
+                element: <Forbidden/>
             }
         ]
     },
@@ -102,16 +113,32 @@ export const router = createBrowserRouter([
                 element: <TrackParcel/>
             },
             {
-                path: "active-riders",
-                element: <ActiveRiders/>
+                path: "assign-rider",
+                element: <AdminRoutes><AssignRider/></AdminRoutes>
             },
             {
-                path: "deactivate-riders",
-                element: <DeactivatedRiders/>
+                path: "active-riders",
+                element: <AdminRoutes><ActiveRiders/></AdminRoutes>
             },
+            // {
+            //     path: "deactivate-riders",
+            //     element: <DeactivatedRiders/>
+            // },
             {
                 path: "pending-riders",
-                element: <PendingRiders/>
+                element: <AdminRoutes><PendingRiders/></AdminRoutes>
+            },
+            {
+                path: "make-admin",
+                element: <AdminRoutes><MakeAdmin/></AdminRoutes>
+            },
+            {
+                path: "pending-deliveries",
+                element: <RiderRoute><PendingDeliveries/></RiderRoute>
+            },
+            {
+                path: "completed-deliveries",
+                element: <RiderRoute><CompletedDeliveries/></RiderRoute>
             }
         ]
     }
