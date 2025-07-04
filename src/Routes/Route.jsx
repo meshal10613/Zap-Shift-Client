@@ -30,6 +30,7 @@ import PendingDeliveries from "../Pages/Dashboard/PendingDeliveries";
 import RiderRoute from "./RiderRoute";
 import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries";
 import MyEarnings from "../Pages/Dashboard/MyEarnings";
+import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 
 export const router = createBrowserRouter([
     {
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
         element: <PrivetRoute><DashBoardLayout/></PrivetRoute>,
         errorElement: <DashboardError/>,
         children: [
+            {
+                index: true,
+                element: <DashboardHome/>
+            },
             {
                 path: "my-parcels",
                 element: <MyParcels/>

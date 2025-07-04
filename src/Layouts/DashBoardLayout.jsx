@@ -44,6 +44,12 @@ const DashBoardLayout = () => {
                         </NavLink>
                     </li>
                     <li>
+                        <NavLink to="/dashboard">
+                            <FaHome className="inline-block mr-2" />
+                            My Dashboard
+                        </NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/dashboard/my-parcels">
                             <FaBoxOpen className="inline-block mr-2" />
                             My Parcels
